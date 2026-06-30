@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Auditex</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #c7c7c7;
+}
+
+/* HEADER */
+.header {
+    background: #1f5eff;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+    background: white;
+    padding: 10px 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #1f5eff;
+    font-weight: bold;
+}
+
+.menu a:hover {
+    color: rgb(154, 154, 250);
+    font-size: 105%;
+}
+
+/* CONTAINER */
+.container {
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    max-width: 900px;
+    margin: 0 auto;
+    padding-top: 80px;
+}
+
+/* CARD */
+.card {
+    width: 260px;
+    height: 160px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    padding: 15px;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateX(-3px);
+}
+
+.icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #1f5eff;
+}
+
+.title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.desc {
+    font-size: 13px;
+    color: #666;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 500px;
+    padding: 10px 15px;
+
+    border: 1px solid #ccc;
+    border-radius: 12px;
+
+    background: #fff;
+}
+
+.icon {
+    font-size: 18px;
+}
+
+.search-input {
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    font-size: 15px;
+}
+
+.search-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 10%;
+
+    background: #1f5eff;
+    color: white;
+
+    cursor: pointer; /* corrigido (antes estava progress) */
+}
+
+.search-type {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 10%;
+
+    outline: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    <div><b>Auditex - Upload</b></div>
+    <div>Usuário Admin</div>
+</div>
+
+<div class="menu">
+    <a href="{% url 'Home' %}">Início</a>
+    <a href="{% url 'Upload' %}">Auditar</a>
+</div>
+
+<div class="container">
+
+    <!-- FORM (substitui a busca sem mudar layout) -->
+    <form class="search-bar"
+          method="POST"
+          enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <span class="icon">📁</span>
+
+        <select class="search-type" name="empresa">
+            <option value="Taya">Taya</option>
+            <option value="Prata">Prata</option>
+            <option value="V8">V8</option>
+        </select>
+
+        <input type="file"
+               name="zipfile"
+               class="search-input"
+               accept=".zip">
+
+        <button class="search-btn" type="submit">
+            Auditar
+        </button>
+
+    </form>
+
+    <!-- RESULTADO -->
+    {% if resultado %}
+
+        {% for operacao, dados in resultado.items %}
+
+        <div class="card">
+
+            <div class="title">{{ operacao }}</div>
+
+            <div class="desc">
+
+                <b>Status:</b> {{ dados.status }}
+
+                <br><br>
+
+                {% if dados.faltando %}
+
+                    <b>Pendências:</b><br>
+                    {{ dados.faltando|join:", " }}
+
+                {% else %}
+
+                    Completa
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

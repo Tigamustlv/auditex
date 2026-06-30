@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Auditex</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #c7c7c7;
+}
+
+/* HEADER */
+.header {
+    background: #1f5eff;
+    color: #c8c8c8;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+    background: white;
+    padding: 10px 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #1f5eff;
+    font-weight: bold;
+}
+
+.menu a:hover {
+    color: rgb(154, 154, 250);
+    font-size: 105%;
+}
+
+/* CONTAINER */
+.container {
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    max-width: 900px;
+    margin: 0 auto;
+    padding-top: 80px;
+}
+
+/* CARD */
+.card {
+    width: 260px;
+    height: 160px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    padding: 15px;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateX(-3px);
+}
+
+
+.icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #FF7000;
+}
+
+.title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.desc {
+    font-size: 13px;
+    color: #666;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+
+html, body {
+    height: 100%;
+}
+
+/* estrutura principal da página */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* faz o conteúdo crescer e empurrar o footer */
+.container {
+    flex: 1;
+}
+
+/* FOOTER NOVO */
+.footer {
+    background: linear-gradient(90deg, #FF7000, #ff6f009f);
+    color: white;
+    text-align: left;
+    padding: 12px 20px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    margin-top: auto;
+
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
+}
+
+
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    <div><b>Auditex</b></div>
+    <div>Usuário Admin</div>
+</div>
+
+<div class="menu">
+    <a href="{% url 'Home' %}">Início</a>
+    <a href="{% url 'Upload' %}">Auditar</a>
+
+</div>
+
+<div class="container">
+
+    <a class="card-link" href="{% url 'Upload' %}">
+        <div class="card">
+        <div class="icon">🧾</div>
+        <div class="title">Auditar</div>
+        <div class="desc">Auditar documentos e lastros</div>
+    </div>
+    </a>
+
+
+</div>
+
+
+<footer class="footer">
+    V 0.1 - T. San 2026
+</footer>
+</body>
+</html>
